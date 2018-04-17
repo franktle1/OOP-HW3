@@ -1,32 +1,67 @@
 package edu.albany.shop;
 
-public class Cashier extends Employee {
+import java.util.ArrayList;
+import java.util.Queue;
 
-	public Cashier(String name, String title) {
-		super(name, title);
-		// TODO Auto-generated constructor stub
+public class Cashier extends Employee{
+	private Transaction currentOrder;
+	
+	public Cashier(String name, String title, Store employer) {
+		super(name, title, employer);
+		currentOrder = null;
 	}
-
-	@Override
+	
 	public void performDuties() {
-		// TODO Auto-generated method stub
+		Queue<Transaction> queue = employer.getQueue();
+		ArrayList<>
+		collectPay(currentOrder.getTotal());
+		sendOrderToQueue(currentOrder, queue);
+		checkReadyQueue();
+		removeCompletedOrders(null, queue);
+		
+	}
+	
+	/**Returns a list of completed orders*/
+	private ArrayList<Transaction> checkReadyQueue() {
+		System.out.println("Checking for any finished orders from the cook...");
+		return null;
+		
+	}
 
+	private void removeCompletedOrders(Transaction t, Queue<Transaction> queue) {
+		System.out.println("Removing order...\n");
+	}
+
+	public void takeOrder(Transaction t) {
+		System.out.println("What would you like to order?");
+		System.out.println(t.toString());
+		this.currentOrder = new Transaction(t);
 	}
 	
-	public void collectCash() {
+	public Transaction getCurrentOrder() {
+		return currentOrder;
+	}
+
+	public void setCurrentOrder(Transaction currentOrder) {
+		this.currentOrder = currentOrder;
+	}
+
+	public void sendOrderToQueue(Transaction t, Queue<Transaction> queue) {
+		queue.offer(t);
+		currentOrder = null;
+		System.out.println("Cashier: Transaction entered into Queue.");
 		
 	}
-	
-	public void returnDifference() {
-		
+
+	public void notifyCook() {
+		System.out.println("Cook notified.");
 	}
+
 	
-	public void takeOrder() {
-		
+	public void collectPay(double d) {
+		double newBalance = employer.getBalance() + d;
+		employer.setBalance(newBalance);
 	}
-	
-	public void giveOrder() {
-		
-	}
-	
+
 }
+
