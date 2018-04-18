@@ -1,5 +1,6 @@
 package edu.albany.shop;
 
+
 import java.util.ArrayList;
 import java.util.Queue;
 
@@ -11,29 +12,44 @@ public class Cashier extends Employee{
 		currentOrder = null;
 	}
 	
+	@Override
 	public void performDuties() {
 		Queue<Transaction> queue = employer.getQueue();
-		ArrayList<>
-		collectPay(currentOrder.getTotal());
-		sendOrderToQueue(currentOrder, queue);
-		checkReadyQueue();
-		removeCompletedOrders(null, queue);
+		ArrayList<Transaction> readyOrders = employer.getReadyOrders();
+		if(currentOrder !=null) {
+			collectPay(currentOrder.getTotal());
+			sendOrderToQueue(queue);
+		}
+		
+		//this is the problem
+		if(readyOrders != null)
+			processCompletedOrders(readyOrders);
 		
 	}
 	
-	/**Returns a list of completed orders*/
-	private ArrayList<Transaction> checkReadyQueue() {
-		System.out.println("Checking for any finished orders from the cook...");
-		return null;
-		
-	}
+//	/**Returns a list of completed orders*/
+//	private ArrayList<Transaction> checkReadyQueue() {
+//		System.out.println("Checking for any finished orders from the cook...");
+//		
+//		return null;
+//		
+//	}
 
-	private void removeCompletedOrders(Transaction t, Queue<Transaction> queue) {
-		System.out.println("Removing order...\n");
+	
+	private void processCompletedOrders(ArrayList<Transaction> readyOrders) {
+		if(readyOrders.size() == 0)
+			return;
+		System.out.println("Delivering ready orders...");	
+		for(int i = 0; i < readyOrders.size(); i++) {
+			
+			System.out.println(getName()+", "+getTitle()+": Order for "+ readyOrders.get(i).getCustomer().getName() + " is ready!");
+			readyOrders.remove(i);
+			System.out.println("Removing order...");
+		}
 	}
 
 	public void takeOrder(Transaction t) {
-		System.out.println("What would you like to order?");
+		System.out.println(getName()+", "+getTitle()+": What would you like to order?");
 		System.out.println(t.toString());
 		this.currentOrder = new Transaction(t);
 	}
@@ -46,17 +62,24 @@ public class Cashier extends Employee{
 		this.currentOrder = currentOrder;
 	}
 
-	public void sendOrderToQueue(Transaction t, Queue<Transaction> queue) {
-		queue.offer(t);
-		currentOrder = null;
-		System.out.println("Cashier: Transaction entered into Queue.");
-		
+	private void sendOrderToQueue(Queue<Transaction> queue) {
+		try {
+			queue.offer(currentOrder);
+			notifyCook();
+			currentOrder = null;
+			System.out.println(getName()+", "+getTitle()+": Transaction entered into Queue.");
+		} catch(NullPointerException e) {
+			System.out.println("Problem with entering transaction.");
+			e.printStackTrace();
+		}
 	}
 
-	public void notifyCook() {
-		System.out.println("Cook notified.");
+	private void notifyCook() {
+		System.out.println(getName()+", "+getTitle()+": Cook notified of order for "
+				+ currentOrder
+					.getCustomer()
+					.getName());
 	}
-
 	
 	public void collectPay(double d) {
 		double newBalance = employer.getBalance() + d;

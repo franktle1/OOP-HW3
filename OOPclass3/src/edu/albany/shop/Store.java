@@ -9,12 +9,14 @@ public class Store{
 	private  double storeBalance;
 	private  String name;
 	private  Queue <Transaction> orderQueue;
+	/**Contains a List of Transactions ready to be removed*/
 	private ArrayList<Transaction> readyOrders;
 
 	public Store() {
 		name = "Pop's Sandwich Shoppe";
 		storeBalance = 1000.00;
 		orderQueue = new LinkedList<Transaction>();
+		readyOrders = new ArrayList<Transaction>();
 	}
 	
 	public ArrayList<Transaction> getReadyOrders() {

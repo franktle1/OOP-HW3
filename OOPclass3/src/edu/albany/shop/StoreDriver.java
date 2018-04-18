@@ -12,7 +12,6 @@ public class StoreDriver {
 		Cashier cashier = new Cashier("Cassie", "Cashier", store);
 		SandwichMaker cook = new SandwichMaker("Chef","Cook", store);
 		
-		
 		ArrayList<Menu> order1 = new ArrayList<>();
 		order1.add(Menu.TURK);
 		order1.add(Menu.DRINK);
@@ -20,7 +19,7 @@ public class StoreDriver {
 		Transaction t1 = new Transaction(new Customer("Bob"), order1);
 		cashier.takeOrder(t1);
 		cashier.performDuties();
-		
+		cook.performDuties();
 		
 		ArrayList<Menu> order2 = new ArrayList<>();
 		order2.add(Menu.HAM);
@@ -28,7 +27,7 @@ public class StoreDriver {
 		Transaction t2 = new Transaction(new Customer("Alice"), order2);
 		cashier.takeOrder(t2);
 		cashier.performDuties();
-		
+		cook.performDuties();
 		
 		ArrayList<Menu> order3 = new ArrayList<>();
 		order3.add(Menu.FRIES);
@@ -36,7 +35,7 @@ public class StoreDriver {
 		Transaction t3 = new Transaction(new Customer("Hank"), order3);
 		cashier.takeOrder(t3);
 		cashier.performDuties();
-		
+		cook.performDuties();
 		
 		ArrayList<Menu> order4 = new ArrayList<>();
 		order4.add(Menu.HAM);
@@ -44,13 +43,14 @@ public class StoreDriver {
 		Transaction t4 = new Transaction(new Customer("Bill"), order4);
 		cashier.takeOrder(t4);
 		cashier.performDuties();
+		cook.performDuties();
+		
+		cashier.performDuties();
 		
 		
 //		store.setOrderQueue(transactions);
-		System.out.println(cashier.getEmployer().getQueue().size());
-		System.out.println(cook.getEmployer().getQueue().size());
-		System.out.println(store.getQueue().size());
-		System.out.println(store.getBalance());
+
+		System.out.println("Store Balance: "+store.getBalance());
 //		Create a list of transactions
 //		Transactions consist of Customers and Orders
 //		Orders are a list of Items that they want

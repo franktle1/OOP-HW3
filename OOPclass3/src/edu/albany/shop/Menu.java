@@ -1,7 +1,7 @@
 package edu.albany.shop;
 
 public enum Menu {
-	/**"Ham Sandwich", 5.00, 3*/
+	/**"Ham Sandwich", 5.00, s3*/
 	HAM("Ham Sandwich", 5.00, 3),
 	/**"Turkey Sandwich", 4.50, 3*/
 	TURK("Turkey Sandwich", 4.50, 3),
